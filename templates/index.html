@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>  
+    <h2>HOLA MUNDO</h2>
+    
+    <main_vue>
+        <!-- interpolacion/ imprimir el contenido de una variable del modelo vue -->
+        <h1>{{ texto_vue_1 }}</h1>
+        <h1 v-text='texto_vue_2'></h1><!-- v-text>>imprime el texto contenido en la propiedad del modelo vue-->
+        <p>-----------------------------------------</p>
+        <!-- two way data binding/ enlace de datos bidireccional y relacion reactiva front<>back -->
+        <input type="text" v-model="nombre_vue"><!-- v-model>>relaciona el objeto con una propiedad del modelo vue -->
+        <p>El nombre es :{{ nombre_vue }}</p>
+        <p>-----------------------------------------</p>
+        <!-- muestra todas las propiedades del modelo vue -->
+        <pre>
+            {{ $data }}
+        </pre>
+        <p>-----------------------------------------</p>
+        <!-- directiva condicional v-if -->
+        <input type="text" v-model="if_value">
+        <h2 v-if="if_value" v-text="if_value"></h2>
+        <h2 v-if="if_value && if_value>5 ">Mayor a 5</h2>
+        <h2 v-else>Menor a 5</h2>
+        <p>-----------------------------------------</p>
+        <!-- directiva v-for lista-->
+        <ol><!-- lista ordenada html-->
+            <li v-for="elemento in for_array">{{elemento}}</li>
+        </ol>
+        <!-- directiva v-for lista-objetos-->
+        <ol>
+            <li v-for="(elemento, index) in for_object">
+                {{index}}: {{elemento.nombre}} - {{elemento.valor}} -- {{elemento.variable}}
+            </li>
+        </ol>
+        <!-- directiva v-for objeto-->
+        <ol>
+            <li v-for="(value,key,index) in for_object_object"><!--value>> valor del objeto/campo/variable // key>>nombre del objeto/campo/variable // index>> ubicacion del elemento en el objeto-->
+                {{index}}: {{key}} - {{value}} 
+            </li>
+        </ol>
+        <p>-----------------------------------------</p>
+        <!-- eventos-->
+        <button v-on:click="alerta1()">alerta1</button>
+        <button @click="alerta2()">alerta2</button>   
+
+        <ol>
+            <li v-for="(elemento,index) in for_array">{{elemento}}
+                <button v-on:click="borrar_elemento_for_array(index)">borrar</button>
+            </li>
+        </ol>
+
+        <!--form @submit="crear_elemento_for_array" action=""-->
+        <form v-on:submit.prevent="crear_elemento_for_array" action=""> <!--prevent_event_defaul-->
+            <input type="text" v-model = "new_element_array">
+            <input type="submit" value= "Guardar_elemento" name="" id="">
+        </form>
+        <p>-----------------------------------------</p>
+        <!-- propiedades computadas(metodos) -->    
+        <h1>{{nombre_vue + ' ' + apellido_vue}}</h1>
+        <h1>{{computada_1}}</h1>
+
+        <ol>
+            <li v-for="elemento in computada_2">{{elemento}}</li>
+        </ol>
+
+        <p>-----------------------------------------</p>
+        <!-- añadir propiedades a un elemnto html (angular > ngclass)-->    
+        <!--v-bind >> permite añadir propiedades a un elemento html dependiendod e ua condicion-->
+        <ol>
+            <li v-on:click="resaltar(index)" v-bind:class="{like: index == resaltar_fondo}" v-for="(elemento, index) in computada_2">{{elemento}}</li>
+        </ol>
+        <p>-----------------------------------------</p>
+
+        <select v-model="elemento_seleccionado" name="select" id="select_x" >
+            <option v-bind:class v-for="elemento in for_select" :value="elemento.value">{{elemento.text}}</option>
+        </select>
+        <h1>El elemento es: {{elemento_seleccionado}}</h1>
+         
+    </main_vue>
+    <div id="new_vue2"> <!--nueva instancia vue-->
+        <p>-----------------------------------------</p>
+        <h2>{{texto}}</h2>        
+        <p>-----------------------------------------</p>
+    </div>
+
+
+    <!--  -->    
+    <p>-----------------------------------------</p>
+    <p>Fin</p>
+    <style>
+        .like{
+            background: green;
+            color: aliceblue;
+            padding: 20px;
+        }
+    </style>
+    <!-- production version, optimized for size and speed -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="../js/main_vue.js"></script>
+</body>
+</html>
